@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 iam_lib   = File.dirname(__FILE__) + '/../lib/stratus/aws/iam.rb'
-setup = File.dirname(__FILE__) + '/setup'
+setup = File.dirname(__FILE__) + '/iamsh-setup'
 irb_name = RUBY_PLATFORM =~ /mswin32/ ? 'irb.bat' : 'irb'
 
 if ( ENV['AMAZON_ACCESS_KEY_ID'] && ENV['AMAZON_SECRET_ACCESS_KEY'] )
