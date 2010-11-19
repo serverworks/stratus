@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stratus}
-  s.version = "0.1.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Serverworks Co.,Ltd."]
-  s.date = %q{2010-11-18}
+  s.date = %q{2010-11-19}
   s.description = %q{Interface classes for the AWS Identity and Access Management (IAM)}
   s.email = %q{support@serverworks.co.jp}
   s.executables = ["iamsh", "setup.rb"]
@@ -41,6 +41,13 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Interface classes for the AWS Identity and Access Management (IAM)}
+  s.test_files = [
+    "spec/spec_helper.rb",
+     "spec/stratus/aws/iam/client_spec.rb",
+     "spec/stratus/aws/iam/group_spec.rb",
+     "spec/stratus/aws/iam_spec.rb",
+     "spec/stratus_spec.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
