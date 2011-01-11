@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.date = %q{2010-11-19}
   s.description = %q{Interface classes for the AWS Identity and Access Management (IAM)}
   s.email = %q{support@serverworks.co.jp}
-  s.executables = ["iamsh", "iamsh-setup"]
+  s.executables = ["iamsh"]
   s.extra_rdoc_files = [
     "LICENSE",
     "README.markdown"
