@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-iam_lib   = File.dirname(__FILE__) + '/../lib/stratus/aws/iam.rb'
+iam_lib = File.dirname(__FILE__) + '/../lib/stratus/aws/iam.rb'
 setup = File.dirname(__FILE__) + '/iamsh-setup.rb'
 irb_name = RUBY_PLATFORM =~ /mswin32/ ? 'irb.bat' : 'irb'
 
@@ -21,7 +21,7 @@ if ( ENV['AMAZON_ACCESS_KEY_ID'] && ENV['AMAZON_SECRET_ACCESS_KEY'] )
   MESSAGE
 
   puts welcome_message
-  exec "#{irb_name} -rubygems -r #{iam_lib} -r #{setup} --simple-prompt"
+  exec "#{irb_name} -rubygems -I . -r #{iam_lib} -r #{setup} --simple-prompt"
 else
   puts "You must define AMAZON_ACCESS_KEY_ID and AMAZON_SECRET_ACCESS_KEY as shell environment variables before running #{$0}!"
 end
