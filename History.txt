@@ -1,2 +1,11 @@
+== 1.0.1 2011-01-21
+added activesupport to dependency. added workaround for RSpec 2. (juno)
+updated documentation. (juno)
+added '.' to $LOAD_PATH (work around for ruby 1.9) (juno)
+added magic comment for ruby 1.9 (juno)
+added require 'active_support' line (juno)
+Renamed bin/iamsh-setup to bin/iamsh-setup.rb. (pjs)
+Removed an entry for 'iamsh-setup' from the 'stratus.gemspec'. (pjs)
+
 == 1.0.0 2010-11-19
 Initial release.
