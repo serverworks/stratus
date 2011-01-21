@@ -9,15 +9,24 @@ REQUIREMENTS:
 ----
 
 * Ruby 1.8.7 or 1.9.2
-* xml-simple and rest-client gems
+* activesupport gem
+* xml-simple gem
+* rest-client gem
 * json_pure or json gem (optionally)
 
 INSTALL:
 ----
 
-    gem install stratus
+    $ gem install stratus
 
-USAGE EXAMPLE
+TESTING:
+----
+
+Currently, spec task only works for RSpec 1.
+
+    $ rake spec
+
+USAGE EXAMPLE:
 ----
 
 ### As interactive shell
@@ -94,7 +103,7 @@ REFERENCES:
 LICENSE:
 ----
 
-This plugin is licensed under the MIT licenses.
+This software is licensed under the MIT licenses.
 
 COPYRIGHT:
 ----
