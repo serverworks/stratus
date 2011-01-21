@@ -1,3 +1,5 @@
+# -*- coding: utf-8; mode: ruby; -*-
+
 module Stratus::AWS::IAM
   class Client
     def initialize(access_key_id, secret_access_key)

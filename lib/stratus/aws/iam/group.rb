@@ -1,3 +1,5 @@
+# -*- coding: utf-8; mode: ruby; -*-
+
 require 'ostruct'
 require 'active_support/inflector'
 

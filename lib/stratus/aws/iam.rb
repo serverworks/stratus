@@ -1,3 +1,5 @@
+# -*- coding: utf-8; mode: ruby; -*-
+
 require 'base64'
 require 'time'
 require 'rest_client'
