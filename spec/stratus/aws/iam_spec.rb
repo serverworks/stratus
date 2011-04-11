@@ -751,6 +751,103 @@ describe "Stratus::AWS::IAM::Base" do
     end
   end
 
+  context '#get_login_profile' do
+    before(:each) do
+      response = stub(RestClient::Response, :code => '200', :to_str => get_login_profile_response, :empty? => false)
+      RestClient.stub!(:get).and_return(response)
+    end
+
+    it "must be able to get the intended user's login profile." do
+      result = @iam.get_login_profile(:user_name => 'User1')
+      result.should have_key('GetLoginProfileResult')
+      result['GetLoginProfileResult'].should have_key('LoginProfile')
+      result['GetLoginProfileResult']['LoginProfile'].should have_key('UserName')
+      result['GetLoginProfileResult']['LoginProfile'].should have_key('CreateDate')
+    end
+
+    it "must raise ArgumentError if the :user_name option haven't been passed." do
+      lambda { @iam.get_login_profile }.should raise_error(ArgumentError)
+    end
+  end
+
+  context '#create_login_profile' do
+    before(:each) do
+      response = stub(RestClient::Response, :code => '200', :to_str => create_login_profile_response)
+      RestClient.stub!(:get).and_return(response)
+    end
+
+    it "must be able to create a login profile" do
+      result = @iam.create_login_profile(:user_name => 'User1', :password => 'new password')
+      result.should have_key('CreateLoginProfileResult')
+      result['CreateLoginProfileResult'].should have_key('LoginProfile')
+      result['CreateLoginProfileResult']['LoginProfile'].should have_key('UserName')
+      result['CreateLoginProfileResult']['LoginProfile'].should have_key('CreateDate')
+    end
+
+    it "must raise ArgumentError if the :user_name option haven't been passed." do
+      lambda { @iam.create_login_profile(:password => 'password') }.should raise_error(ArgumentError)
+    end
+
+    it "must raise ArgumentError if the :password option haven't been passed." do
+      lambda { @iam.create_login_profile(:user_name => 'User1') }.should raise_error(ArgumentError)
+    end
+  end
+
+  context '#update_login_profile' do
+    before(:each) do
+      response = stub(RestClient::Response, :code => '200', :to_str => update_login_profile_response)
+      RestClient.stub!(:get).and_return(response)
+    end
+
+    it "must be able to update the intended user's login password" do
+      result = @iam.update_login_profile(:user_name => 'User1', :password => 'changed password')
+      result.should have_key('ResponseMetadata')
+    end
+
+    it "must raise ArgumentError if the :user_name option haven't been passed." do
+      lambda {
+        @iam.update_login_profile(:password => 'changed password')
+      }.should raise_error(ArgumentError)
+    end
+
+    it "must raise ArgumentError if the :status option haven't been passed." do
+      lambda {
+        @iam.update_login_profile(:user_name => 'User1')
+      }.should raise_error(ArgumentError)
+    end
+
+    it "must call the 'call_api' internally" do
+      @iam.should_receive(:call_api).with(
+        'UpdateLoginProfile', {'UserName' => 'user01', 'Password' => 'pass01'}
+      ).once.and_return(update_login_profile_response)
+      @iam.update_login_profile(:user_name => 'user01', :password => 'pass01')
+    end
+  end
+
+  context '#delete_login_profile' do
+    before(:each) do
+      response = stub(RestClient::Response, :code => '200', :to_str => delete_login_profile_response)
+      RestClient.stub!(:get).and_return(response)
+    end
+
+    it "must be able to delete the intended user's login profile" do
+      result = @iam.delete_login_profile(:user_name => 'User1')
+      result.should have_key('ResponseMetadata')
+    end
+
+    it "must raise ArgumentError if the :user_name option haven't been passed." do
+      lambda { @iam.delete_login_profile(:name => 'User1') }.should raise_error(ArgumentError)
+    end
+
+    it "must call the 'call_api' internally." do
+      @iam.should_receive(:call_api).with(
+        'DeleteLoginProfile', {'UserName' => 'user01'}
+      ).once.and_return(delete_login_profile_response)
+      @iam.delete_login_profile(:user_name => 'user01')
+    end
+  end
+
+
   def get_group_response
     return <<-RES
       <GetGroupResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
@@ -1220,5 +1317,57 @@ nXg=
       </ListSigningCertificatesResponse>
     RES
   end
-end
 
+  def get_login_profile_response
+    return <<-RES
+      <GetLoginProfileResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+        <GetLoginProfileResult>
+          <LoginProfile>
+            <UserName>User1</UserName>
+            <CreateDate>2011-04-11T05:23:02Z</CreateDate>
+          </LoginProfile>
+        </GetLoginProfileResult>
+        <ResponseMetadata>
+          <RequestId>7a8379c0-63fc-11e0-a132-51406a379f1d</RequestId>
+        </ResponseMetadata>
+      </GetLoginProfileResponse>
+    RES
+  end
+
+  def create_login_profile_response
+    return <<-RES
+      <CreateLoginProfileResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+        <CreateLoginProfileResult>
+          <LoginProfile>
+            <UserName>User1</UserName>
+            <CreateDate>2011-04-11T05:23:02.945Z</CreateDate>
+          </LoginProfile>
+        </CreateLoginProfileResult>
+        <ResponseMetadata>
+          <RequestId>c5e4018a-63fb-11e0-8b3f-29b8ea28663b</RequestId>
+        </ResponseMetadata>
+      </CreateLoginProfileResponse>
+    RES
+  end
+
+  def update_login_profile_response
+    return <<-RES
+      <UpdateLoginProfileResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+        <ResponseMetadata>
+          <RequestId>5af58461-63fd-11e0-ab24-a9776016b3b8</RequestId>
+        </ResponseMetadata>
+      </UpdateLoginProfileResponse>
+    RES
+  end
+
+  def delete_login_profile_response
+    return <<-RES
+      <DeleteLoginProfileResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+        <ResponseMetadata>
+          <RequestId>9650fb39-63fd-11e0-833a-8f61616d730e</RequestId>
+        </ResponseMetadata>
+      </DeleteLoginProfileResponse>
+    RES
+  end
+
+end

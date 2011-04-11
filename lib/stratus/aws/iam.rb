@@ -422,6 +422,52 @@ module Stratus
           Response.parse(:xml => response.to_str)
         end
 
+        # Calls get_login_profile API
+        #
+        # @param [Hash] options
+        # @return [Hash]
+        def get_login_profile(options = {})
+          check_user_name(options)
+          params = { 'UserName' => options[:user_name] }
+          response = call_api('GetLoginProfile', params)
+          Response.parse(:xml => response.to_str)
+        end
+
+        # Calls create_login_profile API
+        #
+        # @param [Hash] options
+        # @return [Hash]
+        def create_login_profile(options = {})
+          check_user_name(options)
+          check_password(options)
+          params = { 'UserName' => options[:user_name], 'Password' => options[:password] }
+          response = call_api('CreateLoginProfile', params)
+          Response.parse(:xml => response.to_str)
+        end
+
+        # Calls update_login_profile API
+        #
+        # @param [Hash] options
+        # @return [Hash]
+        def update_login_profile(options = {})
+          check_user_name(options)
+          check_password(options)
+          params = { 'UserName' => options[:user_name], 'Password' => options[:password] }
+          response = call_api('UpdateLoginProfile', params)
+          Response.parse(:xml => response.to_str)
+        end
+
+        # Calls delete_login_profile API
+        #
+        # @param [Hash] options
+        # @return [Hash]
+        def delete_login_profile(options = {})
+          check_user_name(options)
+          params = { 'UserName' => options[:user_name] }
+          response = call_api('DeleteLoginProfile', params)
+          Response.parse(:xml => response.to_str)
+        end
+
         # @param [String] action AWS IAM API action name
         # @param [Hash] params
         # @return RestClient::Response
@@ -564,6 +610,16 @@ module Stratus
         # @raise [ArgumentError] throw if the option[:policy_document] is nil or empty.
         def check_certificate_body(options)
           raise ArgumentError, 'No certificate body provided' if options[:certificate_body].nil? || options[:certificate_body].empty?
+          options
+        end
+
+        # Check to be sure the :password option exist
+        #
+        # @param [Hash] options
+        # @return [Hash]
+        # @raise [ArgumentError] throw if the option[:policy_document] is nil or empty.
+        def check_password(options)
+          raise ArgumentError, 'No password provided' if options[:password].nil? || options[:password].empty?
           options
         end
 
