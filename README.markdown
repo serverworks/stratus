@@ -75,6 +75,13 @@ And put it by PutUserPolicy API.
     >> result['GetUserPolicyResult']['PolicyDocument']
     "{\"Statement\":[{\"Action\":\"ec2:Describe*\",\"Resource\":\"*\",\"Effect\":\"Allow\"}]}"
 
+Create login profile to access AWS Management Console.
+
+    >> @iam.create_login_profile(:user_name => 'john', :password => 'new password')
+    >> result = @iam.get_login_profile(:user_name => 'john')
+    >> @iam.update_login_profile(:user_name => 'john', :password => 'changed password')
+    >> @iam.delete_login_profile(:user_name => 'john')
+
 Delete an user policy and user.
 
     >> @iam.delete_user_policy :user_name => 'john', :policy_name => 'AllowDescribeEC2'
@@ -99,6 +106,7 @@ REFERENCES:
 
 * [Using AWS Identity and Access Management](http://docs.amazonwebservices.com/IAM/latest/UserGuide/)
 * [AWS Identity and Access Management API Reference](http://docs.amazonwebservices.com/IAM/latest/APIReference/)
+* [Using AWS Identity and Access Management](http://docs.amazonwebservices.com/IAM/latest/UserGuide/index.html?Using_AWSManagementConsole.html)
 
 LICENSE:
 ----
@@ -108,4 +116,4 @@ This software is licensed under the MIT licenses.
 COPYRIGHT:
 ----
 
-Copyright (c) 2010 Serverworks Co.,Ltd. See LICENSE for details.
+Copyright (c) 2011 Serverworks Co.,Ltd. See LICENSE for details.
