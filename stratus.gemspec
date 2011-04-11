@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stratus}
-  s.version = "1.0.1"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Serverworks Co.,Ltd."]
-  s.date = %q{2011-01-21}
+  s.date = %q{2011-04-11}
   s.description = %q{Interface classes for the AWS Identity and Access Management (IAM)}
   s.email = %q{tech@serverworks.co.jp}
   s.executables = ["iamsh", "iamsh-setup.rb"]
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/serverworks/stratus}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.1}
+  s.rubygems_version = %q{1.5.0}
   s.summary = %q{Interface classes for the AWS Identity and Access Management (IAM)}
   s.test_files = [
     "spec/spec_helper.rb",
